@@ -1,0 +1,61 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.malla-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+
+.columna {
+  min-width: 250px;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.columna h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.curso {
+  display: block;
+  margin: 6px 0;
+  padding: 8px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.curso:hover {
+  background-color: #d2d2d2;
+}
+
+.curso.completado {
+  background-color: #a3e4a3;
+}
+
+.curso.bloqueado {
+  background-color: #f0cccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
