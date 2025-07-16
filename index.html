@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Interactiva - Negocios Internacionales</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Malla Interactiva - ULaM</h1>
+  <div id="malla-container" class="malla-container"></div>
+
+  <script src="script.js"></script>
+  <script>
+    const container = document.getElementById('malla-container');
+    const estados = {}; // para almacenar qué cursos han sido marcados como completados
+
+    // Agrupar cursos por ciclo
+    const ciclos = {};
+    cursos.forEach(curso => {
+      if (!ciclos[curso.ciclo]) ciclos[curso.ciclo] = [];
+      ciclos[curso.ciclo].push(curso);
+    });
+
+    // Renderizar la malla
+    for (let ciclo = 1; ciclo <= 10; ciclo++) {
+      const columna = document.createElement('div');
+      columna.className = 'columna';
+      const titulo = document.createElement('h2');
+      titulo.textContent = `Ciclo ${ciclo}`;
+      columna.appendChild(titulo);
+
+      (ciclos[ciclo] || []).forEach(curso => {
+        const btn = document.createElement('button');
+        btn.className = 'curso';
+        btn.textContent = curso.nombre;
+        btn.dataset.nombre = curso.nombre;
+        btn.dataset.ciclo = curso.ciclo;
+        if (curso.prerequisitos) {
+          btn.classList.add('bloqueado');
+        }
+        btn.onclick = () => {
+          if (btn.classList.contains('bloqueado')) return;
+          btn.classList.toggle('completado');
+          estados[curso.nombre] = btn.classList.contains('completado');
+          actualizarEstado();
+        };
+        columna.appendChild(btn);
+      });
+
+      container.appendChild(columna);
+    }
+
+    // Actualizar botones bloqueados/desbloqueados
+    function actualizarEstado() {
+      const botones = document.querySelectorAll('.curso');
+      botones.forEach(btn => {
+        const curso = cursos.find(c => c.nombre === btn.dataset.nombre);
+        if (!curso.prerequisitos || curso.prerequisitos.length === 0) return;
+
+        const cumplidos = curso.prerequisitos.every(pre => estados[pre]);
+        if (cumplidos) {
+          btn.classList.remove('bloqueado');
+        } else {
+          btn.classList.add('bloqueado');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
